@@ -11,6 +11,6 @@ export default function Login(){
             <input type="password" />
 
             <button>Login</button>
-            </form>
+        </form>
     );
 }
