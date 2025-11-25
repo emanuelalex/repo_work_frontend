@@ -6,6 +6,9 @@ import App from './App.tsx'
 import SignUp from "./routes/signup.tsx";
 import Login from './routes/login.tsx'; 
 import Dashboard from "./routes/dashboard.tsx";
+import Header from './layout/Header.tsx';
+import Layout from './layout/Layout.tsx';
+import Sidebar from './layout/Sidebar.tsx';
 import ProtectedRoute from './routes/protected_routes.tsx';
 import { Authprovider } from './authentication/authprovider.tsx';
 
@@ -24,7 +27,7 @@ const router = createBrowserRouter([
     children : [
       {
         path: "/dashboard",
-        element: <Dashboard/>,
+        element: <Header/>,
       }
     ]
   },

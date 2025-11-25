@@ -1,12 +1,25 @@
-import "./layout.css";
+const Header = () => {
+  const user = {
+    name: "Invitado",    
+    role: "Admin"       
+  };
 
-const Header: React.FC = () => {
   return (
-    <header className="header">
-      <h1 className="header-title">Sistema de Gestión de Almacén</h1>
-      <span className="header-user">Usuario: Invitado</span>
+    <header style={{
+      background: "#53d5ecff",
+      padding: "15px",
+      display: "flex",
+      justifyContent: "space-between"
+    }}>
+      <h2>Sistema de Gestión de Almacén</h2>
+
+      <div>
+        <strong>Usuario:</strong> {user.name} <br />
+        <strong>Rol:</strong> {user.role}
+      </div>
     </header>
   );
 };
 
 export default Header;
+

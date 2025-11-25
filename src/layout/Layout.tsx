@@ -1,27 +1,19 @@
-import React from "react";
-import Sidebar from "./Sidebar";
 import Header from "./Header";
-import "./layout.css";
+import Sidebar from "./Sidebar";
 
-interface LayoutProps {
-  children: React.ReactNode;
-}
-
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout = ({ children }) => {
   return (
-    <div className="layout-container">
+    <div style={{ display: "flex" }}>
       <Sidebar />
-
-      <div className="layout-main">
+      <div style={{ flex: 1 }}>
         <Header />
-
-        <main className="layout-content">
+        <div style={{ padding: "20px" }}>
           {children}
-        </main>
+        </div>
       </div>
     </div>
   );
 };
 
 export default Layout;
-/*CARLOS*/
+
