@@ -1,7 +1,11 @@
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 
-const Layout = ({ children }) => {
+interface LayoutProps {
+  children: any; // ← evita el error sin ReactNode
+}
+
+const Layout = ({ children }: LayoutProps) => {
   return (
     <div style={{ display: "flex" }}>
       <Sidebar />
@@ -16,4 +20,3 @@ const Layout = ({ children }) => {
 };
 
 export default Layout;
-
