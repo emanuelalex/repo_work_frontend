@@ -12,7 +12,6 @@ const Header = () => {
       justifyContent: "space-between"
     }}>
       <h2>Sistema de Gestión de Almacén</h2>
-
       <div>
         <strong>Usuario:</strong> {user.name} <br />
         <strong>Rol:</strong> {user.role}
