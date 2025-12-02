@@ -5,14 +5,14 @@ function MyComponent() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get('https://backend-proyect2-2.onrender.com')
+    axios.get('https://backend-proyect3.onrender.com')
       .then(response => {
         setData(response.data);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
       });
-  }, []);
+  }, []);nm
 
   return (
     <div>
