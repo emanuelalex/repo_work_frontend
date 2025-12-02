@@ -1,3 +1,7 @@
-export default function Login(){
-    return <h1>Sign Up</h1>
-}
+import { Navigate } from 'react-router-dom';
+
+const Signup = () => {
+  return <Navigate to="/login" replace />;
+};
+
+export default Signup;

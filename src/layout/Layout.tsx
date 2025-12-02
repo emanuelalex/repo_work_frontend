@@ -1,19 +1,23 @@
-import Header from "./Header";
-import Sidebar from "./Sidebar";
+import { useState } from 'react';
+import { Outlet } from 'react-router-dom';
+import Header from './Header';
+import Sidebar from './Sidebar';
 
-const Layout = ({ children }) => {
+const Layout = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+
   return (
-    <div style={{ display: "flex" }}>
-      <Sidebar />
-      <div style={{ flex: 1 }}>
-        <Header />
-        <div style={{ padding: "20px" }}>
-          {children}
+    <div className="min-h-screen bg-gray-100">
+      <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
+      <Sidebar isOpen={sidebarOpen} />
+      
+      <main className={`pt-20 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-20'}`}>
+        <div className="p-6">
+          <Outlet />
         </div>
-      </div>
+      </main>
     </div>
   );
 };
 
 export default Layout;
-

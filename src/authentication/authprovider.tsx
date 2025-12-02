@@ -1,21 +1,56 @@
-import { useContext, createContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { authService, User } from './authService';
 
-interface Authproviderprops{
-    children: React.ReactNode;
+interface AuthContextType {
+  user: User | null;
+  isAuthenticated: boolean;
+  login: (username: string, password: string) => Promise<void>;
+  logout: () => void;
+  loading: boolean;
 }
 
-const AuthContext = createContext({
-    isAuthenticated: false,
-});
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function Authprovider({children} : Authproviderprops){
-    const [isAuthenticated, setIsAuthenticated] = useState(true); //Cambiar a false cuando se haga la conexión con Backend
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
-    return (
-        <AuthContext.Provider value={{ isAuthenticated}}>
-            {children}
-        </AuthContext.Provider>
-    );    
-}
+  useEffect(() => {
+    const currentUser = authService.getCurrentUser();
+    setUser(currentUser);
+    setLoading(false);
+  }, []);
 
-export const useAuth = () => useContext(AuthContext);
+  const login = async (username: string, password: string) => {
+    const response = await authService.login({ username, password });
+    authService.saveSession(response.token, response.user);
+    setUser(response.user);
+  };
+
+  const logout = () => {
+    authService.logout();
+    setUser(null);
+  };
+
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated: !!user,
+        login,
+        logout,
+        loading,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth debe usarse dentro de AuthProvider');
+  }
+  return context;
+};
